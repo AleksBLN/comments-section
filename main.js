@@ -31,14 +31,17 @@ const fetchData = () => {
 
 fetchData();
 
-const button = document.querySelector('#submit');
+const formToSubmit = document.querySelector('#commentForm');
 
-button.addEventListener('click', () => {
-	const form = new FormData(document.querySelector('#commentForm'));
+formToSubmit.addEventListener('submit', (e) => {
+	e.preventDefault();
+	const formData = new FormData(formToSubmit);
+	formToSubmit.reset();
 	const request = new Request('php/addData.php', {
 		method: 'POST',
-		body: form
+		body: formData
 	});
+
 	fetch(request)
 	.then(response => response.text())
 	.then(() => {
